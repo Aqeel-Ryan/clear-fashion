@@ -34,6 +34,10 @@ console.log(MY_FAVORITE_BRANDS[0]);
 // 1. Create a new variable and assign it the link of the cheapest t-shirt
 // I can find on these e-shops
 // 2. Log the variable
+const cheap_Faguo = 'https://www.faguo-store.com/fr/vetements/7204-aubrac-t-shirt-coton-coton-recycle-ecru-bleu.html'
+const cheap_Loom = 'https://www.loom.fr/collections/t-shirts-polos/products/le-t-shirt-homme'
+const cheap_Ecclo = 'https://ecclo.fr/products/t-shirt-noir-boycott-world-cup-2022'
+console.log(cheap_Ecclo,cheap_Faguo,cheap_Loom)
 
 /**
  * 👕
@@ -47,29 +51,39 @@ console.log(MY_FAVORITE_BRANDS[0]);
 // 🎯 TODO 2: Number of products
 // 1. Create a variable and assign it the number of products
 // 2. Log the variable
+const tot_products = marketplace.length
+console.log(tot_products)
 
 // 🎯 TODO 3: Brands name
 // 1. Create a variable and assign it the list of brands name only
 // 2. Log the variable
 // 3. Log how many brands we have
+const brand_names = Array.from(new Set(marketplace.map((item) => item.brand)));
+console.log(brand_names);
 
 // 🎯 TODO 4: Sort by price
 // 1. Create a function to sort the marketplace products by price
 // 2. Create a variable and assign it the list of products by price from lowest to highest
 // 3. Log the variable
+console.log(marketplace.sort((a, b) => {return a.price - b.price}))
 
 // 🎯 TODO 5: Sort by date
 // 1. Create a function to sort the marketplace objects by products date
 // 2. Create a variable and assign it the list of products by date from recent to old
 // 3. Log the variable
+console.log(marketplace.sort((a, b) => {return a.released - b.released}))
 
 // 🎯 TODO 6: Filter a specific price range
 // 1. Filter the list of products between 50€ and 100€
 // 2. Log the list
+const range = marketplace.filter(x => x.price >= 50 && x.price <= 100);
+console.log(range)
 
 // 🎯 TODO 7: Average price
 // 1. Determine the average price of the marketplace
 // 2. Log the average
+const average = marketplace.reduce((total, next) => total + next.price, 0) / marketplace.length;
+console.log(average)
 
 /**
  * 🏎
@@ -91,8 +105,26 @@ console.log(MY_FAVORITE_BRANDS[0]);
 //   'brand-name-n': [{...}, {...}, ..., {...}],
 // };
 //
+// var arr1 = [
+//   {"user":"dan","liked":"yes","age":"22"},
+//   {"user":"sarah","liked":"no","age":"21"},
+//   {"user":"john","liked":"yes","age":"23"},
+//  ];
+ 
+//  var arr2 = arr1.map(v => ({ user: v.user, liked: v.liked }));
+link
+brand
+price
+name
+photo
+uui
+released
+//  console.log(arr2);
 // 2. Log the variable
 // 3. Log the number of products by brands
+const brands = marketplace.map(x => (x.brand[x.link, x.price, x.name, x.photo, x.uuid,x.released]))
+console.log(brands)
+
 
 // 🎯 TODO 9: Sort by price for each brand
 // 1. For each brand, sort the products by price, from highest to lowest
