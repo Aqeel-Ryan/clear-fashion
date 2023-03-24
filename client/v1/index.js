@@ -105,14 +105,16 @@ console.log(average)
 //   'brand-name-n': [{...}, {...}, ..., {...}],
 // };
 //
-const Brands = marketplace.reduce((group, marketplace) => {
-  const { brand } = marketplace;
-  group[brand] = group[brand] ?? [];
-  group[brand].push(marketplace);
-  return group;
+
+const Brands = marketplace.reduce((acc, product) => {
+  if (!acc[product.brand]) {
+    acc[product.brand] = [];
+  }
+  acc[product.brand].push(product);
+  return acc;
 }, {});
 
-console.log(Brands);
+console.log(Brands)
 
 
 // 🎯 TODO 9: Sort by price for each brand
@@ -125,11 +127,7 @@ console.log(Brands.loom.reverse(),Brands.hast.reverse(),Brands.panafrica.reverse
 // 1. For each brand, sort the products by date, from old to recent
 // 2. Log the sort
 
-for(var x in Brands.loom){
-  console.log(Brands.x.released)
-}
 
-// console.log()
 /**
  * 💶
  * Let's talk about money now
@@ -140,6 +138,17 @@ for(var x in Brands.loom){
 // 🎯 TODO 11: Compute the p90 price value
 // 1. Compute the p90 price value of each brand
 // The p90 value (90th percentile) is the lower value expected to be exceeded in 90% of the products
+
+const p90ByBrand = {};
+for (const [brand, products] of Object.entries(Brands)) {
+  const prices = products.map((product) => product.price);
+  prices.sort((a, b) => a - b);
+  const p90Index = Math.ceil(prices.length * 0.9) - 1;
+  const p90Price = prices[p90Index];
+  p90ByBrand[brand] = p90Price;
+}
+
+console.log(p90ByBrand)
 
 /**
  * 🧥
@@ -333,17 +342,54 @@ const COTELE_PARIS = [
 // // 1. Log if we have new products only (true or false)
 // // A new product is a product `released` less than 2 weeks.
 
+function hasNewProducts(dataset) {
+  const TWO_WEEKS_IN_MS = 14 * 24 * 60 * 60 * 1000; // 14 days in milliseconds
+  const currentDate = new Date();
+  
+  for (const product of dataset) {
+    const releaseDate = new Date(product.released);
+    const differenceInMs = currentDate - releaseDate;
+    
+    if (differenceInMs <= TWO_WEEKS_IN_MS) {
+      return true;
+    }
+  }
+  
+  return false;
+}
+
+const newProductsExist = hasNewProducts(COTELE_PARIS)
+console.log(newProductsExist)
+
 // 🎯 TODO 2: Reasonable price
 // // 1. Log if coteleparis is a reasonable price shop (true or false)
 // // A reasonable price if all the products are less than 100€
+
+const x = COTELE_PARIS.map(product => product.price)
+const isCoteleReasonablePrice = x.every(price => price < 100)
+
+console.log(isCoteleReasonablePrice)
 
 // 🎯 TODO 3: Find a specific product
 // 1. Find the product with the uuid `2b9a47e3-ed73-52f6-8b91-379e9c8e526c`
 // 2. Log the product
 
+const product = COTELE_PARIS.find(item => item.uuid === '2b9a47e3-ed73-52f6-8b91-379e9c8e526c');
+console.log(product);
+
+
 // 🎯 TODO 4: Delete a specific product
 // 1. Delete the product with the uuid `2b9a47e3-ed73-52f6-8b91-379e9c8e526c`
 // 2. Log the new list of product
+
+for (let i = 0; i < COTELE_PARIS.length; i++) {
+  if (COTELE_PARIS[i].uuid === '2b9a47e3-ed73-52f6-8b91-379e9c8e526c') {
+    COTELE_PARIS.splice(i, 1);
+    break;
+  }
+}
+
+console.log(COTELE_PARIS)
 
 // 🎯 TODO 5: Save the favorite product
 // We declare and assign a variable called `blueJacket`
@@ -382,6 +428,19 @@ blueJacket = {
 };
 
 // 3. Update `jacket` property with `favorite` to true WITHOUT changing blueJacket properties
+
+blueJacket = {
+  'link':
+    'https://coteleparis.com/collections/homme/products/veste-cotele-navy?_pos=8&_fid=2fee5844b&_ss=c&variant=42801558585574?variant=42801558585574&tag=homme',
+  'brand': 'coteleparis',
+  'price': 126,
+  'name': 'VESTE CÔTELÉ NAVY',
+  'photo':
+    'https://cdn.shopify.com/s/files/1/0479/7798/8261/files/NAVY_PHOTO_SITE.png?crop=center&height=1545&v=1657553445&width=1200',
+  'uuid': '49c4e2d8-0cb4-5867-a5b9-23bd7168149f',
+  'released': '2022-08-15',
+  'favorites':true
+};
 
 /**
  * 🎬
