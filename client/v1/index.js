@@ -58,8 +58,9 @@ console.log(tot_products)
 // 1. Create a variable and assign it the list of brands name only
 // 2. Log the variable
 // 3. Log how many brands we have
-const brand_names = Array.from(new Set(marketplace.map((item) => item.brand)));
-console.log(brand_names);
+const brand_names = Array.from(new Set(marketplace.map((item) => item.brand)))
+console.log(brand_names)
+console.log(brand_names.length)
 
 // 🎯 TODO 4: Sort by price
 // 1. Create a function to sort the marketplace products by price
@@ -84,7 +85,6 @@ console.log(range)
 // 2. Log the average
 const average = marketplace.reduce((total, next) => total + next.price, 0) / marketplace.length;
 console.log(average)
-
 /**
  * 🏎
  * We are almost done with the `marketplace` variable
@@ -105,35 +105,31 @@ console.log(average)
 //   'brand-name-n': [{...}, {...}, ..., {...}],
 // };
 //
-// var arr1 = [
-//   {"user":"dan","liked":"yes","age":"22"},
-//   {"user":"sarah","liked":"no","age":"21"},
-//   {"user":"john","liked":"yes","age":"23"},
-//  ];
- 
-//  var arr2 = arr1.map(v => ({ user: v.user, liked: v.liked }));
-link
-brand
-price
-name
-photo
-uui
-released
-//  console.log(arr2);
-// 2. Log the variable
-// 3. Log the number of products by brands
-const brands = marketplace.map(x => (x.brand[x.link, x.price, x.name, x.photo, x.uuid,x.released]))
-console.log(brands)
+const Brands = marketplace.reduce((group, marketplace) => {
+  const { brand } = marketplace;
+  group[brand] = group[brand] ?? [];
+  group[brand].push(marketplace);
+  return group;
+}, {});
+
+console.log(Brands);
 
 
 // 🎯 TODO 9: Sort by price for each brand
 // 1. For each brand, sort the products by price, from highest to lowest
 // 2. Log the sort
 
+console.log(Brands.loom.reverse(),Brands.hast.reverse(),Brands.panafrica.reverse())
+
 // 🎯 TODO 10: Sort by date for each brand
 // 1. For each brand, sort the products by date, from old to recent
 // 2. Log the sort
 
+for(var x in Brands.loom){
+  console.log(Brands.x.released)
+}
+
+// console.log()
 /**
  * 💶
  * Let's talk about money now
